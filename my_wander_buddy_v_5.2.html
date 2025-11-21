@@ -1,0 +1,906 @@
+<!-- My Wander Buddy — Customer Dashboard V.5.2 (Full Pro, Headings/Data Updated) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>My Wander Buddy — Customer Dashboard V.5.2 (Full Pro)</title>
+
+<style>
+:root {
+  --green:#1f4c2e;
+  --gold:#d5a546;
+  --sand:#f5f2e9;
+  --brown:#2b2b2b;
+}
+body {
+  font-family: Inter, system-ui;
+  background:var(--sand);
+  margin:0; padding:0;
+  color:var(--brown);
+}
+.container {
+  max-width:1020px;
+  margin:40px auto;
+  background:white;
+  border-radius:22px;
+  padding:30px;
+  box-shadow:0 12px 40px rgba(0,0,0,0.10);
+  border:1px solid #e8e2d6;
+}
+.header {
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  gap:18px;
+  padding-bottom:14px;
+  border-bottom:4px solid var(--gold);
+  margin-bottom:26px;
+}
+.logo {
+  width:50px; height:50px;
+  border-radius:50%;
+  background:linear-gradient(145deg,var(--green),var(--gold));
+  display:flex; align-items:center; justify-content:center;
+  color:white; font-weight:700; font-size:20px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.20);
+}
+h1 { margin:0; font-size:28px; color:var(--green); font-weight:700; }
+.tabs {
+  display:flex; gap:12px; margin-bottom:22px;
+}
+.tab {
+  padding:10px 20px;
+  background:#eee6d6;
+  border-radius:30px;
+  cursor:pointer;
+  font-weight:600;
+  transition:0.2s;
+  border:1px solid #e0d7c4;
+}
+.tab:hover { background:#e5ddcc; }
+.tab.active {
+  background:var(--gold);
+  color:white;
+  box-shadow:0 2px 6px rgba(0,0,0,0.20);
+  border:none;
+}
+.card {
+  background:white;
+  border-radius:14px;
+  padding:22px;
+  box-shadow:0 6px 18px rgba(0,0,0,0.08);
+  margin-bottom:24px;
+  border:1px solid #eee6d6;
+}
+.input {
+  width:100%; padding:10px; margin:6px 0;
+  border-radius:10px;
+  border:1px solid #ccc;
+  background:#fafafa;
+  transition:0.15s;
+}
+.input:focus {
+  outline:none;
+  border-color:var(--gold);
+  box-shadow:0 0 8px rgba(213,165,70,0.35);
+  background:white;
+}
+.button {
+  width:100%; background:var(--green);
+  color:white; padding:12px;
+  border:none; border-radius:10px;
+  font-size:16px; cursor:pointer;
+  margin-top:12px;
+  transition:0.2s;
+  box-shadow:0 4px 12px rgba(0,0,0,0.15);
+}
+.button:hover {
+  background:#163721;
+  box-shadow:0 6px 16px rgba(0,0,0,0.22);
+}
+.accordion {
+  border:1px solid #e0d7c4;
+  border-radius:12px;
+  margin-bottom:14px;
+}
+.acc-header {
+  padding:14px; background:#faf7f0;
+  font-weight:600; color:var(--green);
+  display:flex; justify-content:space-between;
+  cursor:pointer; border-radius:12px;
+  border:1px solid #e8dfcc;
+  transition:0.2s;
+}
+.acc-header:hover { background:#f2ecdf; }
+.acc-body {
+  padding:12px 16px 16px 16px;
+  border-top:1px solid #eee6d6;
+  background:#fffdf7;
+}
+.badge{ padding:4px 10px; border-radius:12px; color:white; font-size:12px; }
+.badge.not{ background:#777; }
+.badge.inprogress{ background:var(--gold); }
+.badge.completed{ background:var(--green); }
+.drawer{
+  position:fixed;top:0;right:-380px;width:360px;height:100%;background:white;
+  box-shadow:-4px 0 25px rgba(0,0,0,0.18);
+  padding:26px;overflow-y:auto;transition:0.3s;
+  border-left:3px solid var(--gold);
+  z-index:1001;
+}
+.drawer.open{ right:0; }
+.drawer-bg{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  background:rgba(0,0,0,0.35);
+  display:none;
+  z-index:1000;
+}
+.drawer-bg.show{ display:block; }
+.export-box{
+  display:flex; flex-wrap:wrap; gap:10px;
+}
+.export-btn{
+  background:var(--green); color:white;
+  padding:10px 14px;
+  border:none; border-radius:8px;
+  cursor:pointer; transition:0.2s;
+  box-shadow:0 3px 8px rgba(0,0,0,0.15);
+  font-weight:700;
+}
+.export-btn:hover { background:#163721; }
+.title-frame{
+  display:inline-block;
+  padding:6px 14px;
+  border-radius:16px;
+  border:2px solid #c8a579;
+  background:linear-gradient(135deg,#f4e3c3,#d9b892);
+  box-shadow:0 4px 10px rgba(0,0,0,0.18);
+}
+.title-center{
+  text-align:center;
+}
+.version-tag{
+  font-size:12px;
+  color:#6b5a3a;
+  font-weight:600;
+  text-align:right;
+}
+.hero-card{
+  background:linear-gradient(135deg,#8b5a2b,#5a3a1a);
+  border-color:#e0d7c4;
+  color:#fdf7ec;
+}
+.hero-shell{
+  display:grid;
+  grid-template-columns:110px 1fr;
+  align-items:center;
+  gap:24px;
+  padding:26px 28px;
+}
+.hero-compass{
+  position:static;
+  left:auto;
+  top:auto;
+  transform:none;
+  font-size:72px;
+  line-height:1;
+  text-align:center;
+}
+.hero-text{
+  text-align:center;
+}
+.hero-card h2 { color:#fffdf7; text-shadow:0 1px 2px rgba(0,0,0,0.45); }
+.hero-card p { color:#fffdf7; text-shadow:0 1px 2px rgba(0,0,0,0.45); }
+  /* Wander Buddy logo composed from compass + road concept (SVG-based) */
+  .logo-wb{
+    width:72px;
+    height:72px;
+  }
+  .logo-wb svg{
+    width:100%;
+    height:100%;
+    display:block;
+  }
+
+  /* Dashboard tour spacing for readability */
+  .tour-list{
+    padding-left:22px;
+    margin:8px 0 0;
+    line-height:1.7;
+  }
+  .tour-list li{
+    margin-bottom:12px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- HEADER -->
+<div class="header">
+  <div class="logo-wb" aria-label="My Wander Buddy logo">
+    <svg viewBox="0 0 80 90" xmlns="http://www.w3.org/2000/svg" role="img">
+      <!-- Compass outer ring -->
+      <circle cx="40" cy="26" r="20" fill="#fdf7ec" stroke="#a7713a" stroke-width="3" />
+      <!-- Compass points (N, E, S, W) -->
+      <path d="M40 4 L44 14 L36 14 Z" fill="#a7713a" />
+      <path d="M62 26 L52 30 L52 22 Z" fill="#a7713a" />
+      <path d="M40 48 L36 38 L44 38 Z" fill="#a7713a" />
+      <path d="M18 26 L28 22 L28 30 Z" fill="#a7713a" />
+      <!-- WB letters -->
+      <text x="40" y="32" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="800" fill="#a7713a">WB</text>
+      <!-- Tapered curved road (filled) -->
+      <path d="M35 44 Q 33 52 31 60 Q 29 69 30 78 L 50 78 Q 48 69 47 60 Q 45 52 43 44 Z" fill="#a7713a" />
+      <!-- Center dashed line on road -->
+      <path d="M40 46 Q 38.5 55 37.5 62 Q 37 69 37.5 76" stroke="#fdf7ec" stroke-width="2" stroke-linecap="round" stroke-dasharray="4 4" fill="none" />
+    </svg>
+  </div>
+  <div class="title-frame">
+    <h1 style="display:flex; align-items:center; gap:10px; font-size:30px; margin:0;">My Wander Buddy</h1>
+  </div>
+  <div class="version-tag">Customer Dashboard V.5.2 — Full Pro</div>
+</div>
+
+
+<!-- TABS -->
+<div class="tabs">
+  <div class="tab active" data-tab="dashboard">Dashboard</div>
+  <div class="tab" data-tab="projects">Projects</div>
+  <div class="tab" data-tab="travel">Workspaces &amp; Travel</div>
+  <div class="tab" data-tab="finances">Finances</div>
+  <div class="tab" data-tab="documents">Documents</div>
+  <div class="tab" data-tab="assistant">Assistant</div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard" class="section">
+  <div class="card hero-card hero-shell" style="display:grid; grid-template-columns:90px 1fr; align-items:center;">
+    <div class="hero-compass" style="font-size:72px; text-align:center;">🧭</div>
+    <div class="hero-text" style="text-align:center;">
+      <h2 style="font-size:34px; margin:0 0 10px 0;">Welcome Back</h2>
+      <p style="font-size:17px; margin:0;">Your nomadic command center for projects, travel, money, and documents — built for your on‑the‑move workflow.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>🧭 Dashboard Tour</h2>
+    <ol class="tour-list">
+      <li>📁 <strong>Projects:</strong> Add a project in the Projects tab, then click it to see the summary and open the editor drawer.</li>
+      <li>🗺️ <strong>Workspaces &amp; Travel:</strong> Save your favorite campsites, cafés, and Wi‑Fi stops — and optionally capture GPS for your route.</li>
+      <li>💰 <strong>Finances:</strong> Log income and expenses to see total income, total expenses, and net in one quick mini P&amp;L view.</li>
+      <li>📄 <strong>Documents:</strong> Save notes or upload files so everything for your trip or client lives in one place.</li>
+      <li>⬇️ <strong>Export Tools:</strong> Export projects, finances, or docs for backup or sharing.</li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h2>Projects Overview</h2>
+    <div id="projectSummary">No active projects.</div>
+  </div>
+
+  <!-- EXPORT SECTION -->
+  <div class="card">
+    <h2>Export Tools</h2>
+    <div class="export-box">
+      <button class="export-btn" onclick="exportProjectsCSV()">Export Projects (CSV)</button>
+      <button class="export-btn" onclick="exportFinancesCSV()">Export Finances (CSV)</button>
+      <button class="export-btn" onclick="exportDocsTXT()">Export Documents (TXT)</button>
+    </div>
+  </div>
+
+  <!-- SUPPORT & 1:1 HELP -->
+  <div class="card">
+    <h2>🧭 Support &amp; 1:1 Help</h2>
+    <p>If you need help using My Wander Buddy, you can reach out directly or book a live walkthrough.</p>
+    <p style="margin-top:6px; font-size:14px;">
+      Email: <a href="mailto:Support@about-facegroup.com" style="color:var(--green); font-weight:600;">Support@about-facegroup.com</a>
+    </p>
+    <a href="https://calendar.app.google/jfE7h1SqoAStehPX7" target="_blank" rel="noopener noreferrer" class="button" style="text-align:center; margin-top:10px; text-decoration:none; display:inline-block; width:100%;">
+      Schedule a 1:1 Session
+    </a>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<div id="projects" class="section" style="display:none;">
+  <div class="card">
+    <h2>📁 Projects Overview</h2>
+    <p style="font-size:13px; color:#6b5a3a; margin-top:4px;">
+      Track each client, farm stay, or side‑gig as a project. Link it to a trip and keep the money story attached.
+    </p>
+    <input class="input" id="pName" placeholder="Project Name" />
+    <input class="input" id="pClient" placeholder="Client Name" />
+    <input class="input" id="pEmail" placeholder="Client Email" />
+    <input class="input" id="pPhone" placeholder="Client Phone" />
+    <input class="input" id="pRevenue" placeholder="Projected Revenue ($)" />
+    <textarea class="input" id="pNotes" placeholder="Notes..."></textarea>
+    <button class="button" onclick="addProject()">Add Project</button>
+  </div>
+
+  <div class="card">
+    <h2>🗂️ Saved Projects</h2>
+    <div id="projectList">None yet.</div>
+  </div>
+</div>
+
+<!-- EDIT DRAWER -->
+<div class="drawer-bg" id="drawerBg" onclick="closeDrawer()"></div>
+<div class="drawer" id="drawer">
+  <h2>📁✏️ Edit Project</h2>
+  <input class="input" id="eName" />
+  <input class="input" id="eClient" />
+  <input class="input" id="eEmail" />
+  <input class="input" id="ePhone" />
+  <input class="input" id="eRevenue" />
+  <textarea class="input" id="eNotes"></textarea>
+  <button class="button" onclick="saveEdit()">Save</button>
+  <button class="button" style="background:#b33;" onclick="deleteProject()">Delete</button>
+</div>
+
+<!-- TRAVEL -->
+<div id="travel" class="section" style="display:none;">
+  <div class="card">
+    <h2>🧭 Workspaces &amp; Travel</h2>
+    <p>Pin routes, nearest Wi‑Fi, camp spots, or hotel stays and link each stop to the project or client it supports.</p>
+    <input class="input" id="wName" placeholder="Workspace / Stop Name (ex: Lakeview Campground)" />
+    <select class="input" id="wType">
+      <option value="Campsite">Campsite</option>
+      <option value="Cafe">Cafe</option>
+      <option value="Library">Library</option>
+      <option value="Coworking">Co-working Space</option>
+      <option value="Other">Other</option>
+    </select>
+    <input class="input" id="wLocation" placeholder="City / Area / Zip" />
+    <input class="input" id="wWifi" placeholder="Wi-Fi notes (strong, weak, password, etc.)" />
+    <textarea class="input" id="wNotes" placeholder="Parking, noise level, hours, safety notes..."></textarea>
+    <select class="input" id="wProject">
+      <option value="">Attach to project (optional)</option>
+    </select>
+    <button class="button" onclick="addWorkspace()">Add Workspace / Stop</button>
+    <button class="button" style="background:#274f7d; margin-top:8px;" onclick="captureLocation()">Use My Location (optional)</button>
+    <small>Location stays in your browser only — perfect for planning without sharing your route.</small>
+  </div>
+  <div class="card">
+    <h2>🧭📍 Saved Workspaces</h2>
+    <div id="wList">No workspaces saved yet.</div>
+  </div>
+</div>
+
+<!-- FINANCES -->
+<div id="finances" class="section" style="display:none;">
+  <div class="card">
+    <h2>💰 Finances – Mini Profit &amp; Loss</h2>
+    <p style="font-size:13px; color:#6b5a3a; margin-top:4px;">
+      Log income and expenses by project or route. Wander Buddy can show a mini P&amp;L so you see what’s truly profitable on the road.
+    </p>
+    <select class="input" id="tType">
+      <option value="Income">Income</option>
+      <option value="Expense">Expense</option>
+    </select>
+    <select class="input" id="tProject">
+      <option value="">Attach to project (optional)</option>
+    </select>
+    <input class="input" id="tCategory" placeholder="Category (ex: Client Payment, Fuel, Campsite Fees)" />
+    <input class="input" id="tDate" type="date" />
+    <input class="input" id="tAmount" placeholder="Amount" />
+    <textarea class="input" id="tNote" placeholder="Short note (ex: 'Invoice #104', 'Groceries for trip')"></textarea>
+    <button class="button" onclick="addTransaction()">Add Transaction</button>
+    <div style="margin-top:6px; font-size:13px; color:#6b5a3a; font-weight:600;">
+      Did you have any expenses related to this income? Add a separate <strong>Expense</strong> entry above (and attach it to the same project) to keep your mini P&amp;L accurate.<br><em>Example: fuel, campsite fees, supplies, tolls, safety gear, or trip‑related purchases.</em>
+    </div>
+  </div>
+  <div class="card">
+    <h2>📊 Summary &amp; Log (Mini P&amp;L)</h2>
+    <div id="tList">No transactions yet.</div>
+  </div>
+</div>
+
+<!-- DOCUMENTS -->
+<div id="documents" class="section" style="display:none;">
+  <div class="card">
+    <h2>📄 Documents &amp; Attachments</h2>
+    <p style="font-size:13px; color:#6b5a3a; margin-top:0;">
+      Keep contracts, invoices, receipts, and tax notes attached to each client, project, or trip so your paper trail matches your money trail. Notes and uploads stay in this dashboard only. Use the Export Tools on the Dashboard to back up or share.
+    </p>
+    <input class="input" id="dTitle" placeholder="Title" />
+    <select class="input" id="dProject">
+      <option value="">Attach to project (optional)</option>
+    </select>
+    <textarea class="input" id="dBody" placeholder="Notes, links, or checklist text..."></textarea>
+    <button class="button" onclick="saveDocument()">Save Document</button>
+  </div>
+  <div class="card">
+    <h2>📎 Upload Files</h2>
+    <input class="input" type="file" id="dFiles" multiple onchange="importDocuments(event)" />
+    <small>Upload reference PDFs, images, or docs — filenames are stored in your dashboard list.</small>
+  </div>
+  <div class="card">
+    <h2>📚 Saved Docs</h2>
+    <div id="dList">No documents yet.</div>
+  </div>
+</div>
+
+<!-- ASSISTANT (SMART PROMPTS) -->
+<div id="assistant" class="section" style="display:none;">
+  <div class="card">
+    <h2>🤖🧠 Nomad Assistant (Helper Pane)</h2>
+    <p style="margin-top:0;">
+      Choose what you want help with, and this helper will guide you to the next best step in your dashboard.
+    </p>
+    <select class="input" id="assistantTask" onchange="runAssistant()">
+      <option value="">What do you want to do?</option>
+      <option value="project">Set up a new project</option>
+      <option value="travel">Log a workspace or travel stop</option>
+      <option value="finances">Review or update my mini P&amp;L</option>
+      <option value="docs">Organize trip/client documents</option>
+      <option value="export">Export data for backup or sharing</option>
+      <option value="support">Get support or a 1:1 walkthrough</option>
+    </select>
+    <div id="assistantOutput" style="margin-top:12px; font-size:14px; line-height:1.6; color:#3b3528;"></div>
+  </div>
+</div>
+
+<!-- LICENSE FOOTER -->
+<footer style="margin-top:40px; text-align:center; font-size:14px; color:#555;">
+© 2025 About-Face Tax Group LLC — Licensed for personal and business use. Redistribution prohibited.
+</footer>
+
+<!-- ==========================
+     SCRIPT ENGINE — V5.2 (Full Pro)
+========================== -->
+<script>
+// VERSION CONTROL: full or limited
+const VERSION = "full";
+
+// TAB LOGIC
+const tabs = document.querySelectorAll('.tab');
+const sections = document.querySelectorAll('.section');
+tabs.forEach(t=>{
+  t.addEventListener('click',()=>{
+    tabs.forEach(a=>a.classList.remove('active'));
+    t.classList.add('active');
+    const target=t.dataset.tab;
+    sections.forEach(sec=>{
+      sec.style.display=(sec.id===target)?'block':'none';
+    });
+    applyFeatureLocks();
+  });
+});
+
+// DATA STORAGE
+let projects = [];
+let finances = [];
+let docs = [];
+let workspaces = [];
+let currentLocation = null;
+let currentIndex = null;
+let projectIdCounter = 1;
+
+// ADD PROJECT
+function addProject(){
+  if(VERSION==="limited") return alert("Upgrade required.");
+  const p = {
+    id: projectIdCounter++,
+    name: pName.value,
+    client: pClient.value,
+    email: pEmail.value,
+    phone: pPhone.value,
+    revenue: pRevenue.value,
+    notes: pNotes.value
+  };
+  projects.push(p);
+  refreshProjectList();
+}
+
+// REFRESH PROJECTS + DASHBOARD SUMMARY
+function refreshProjectList(){
+  const list = document.getElementById('projectList');
+  const summary = document.getElementById('projectSummary');
+
+  if(projects.length===0){
+    if(list) list.innerHTML='None yet.';
+    if(summary) summary.textContent='No active projects.';
+    refreshProjectSelectors();
+    return;
+  }
+
+  if(list){
+    list.innerHTML = projects.map((p,i)=>
+      `<div class="accordion">
+        <div class="acc-header" onclick="toggleProjectBody(${i})">
+          <span>${p.name || 'Untitled Project'}</span>
+          <span class="badge inprogress">●</span>
+        </div>
+        <div class="acc-body" id="project-body-${i}" style="display:none;">
+          <div><strong>Client:</strong> ${p.client || ''}</div>
+          <div><strong>Revenue:</strong> ${p.revenue || ''}</div>
+          <div><strong>Email:</strong> ${p.email || ''}</div>
+          <div><strong>Phone:</strong> ${p.phone || ''}</div>
+          <div><strong>Notes:</strong> ${p.notes || ''}</div>
+          <button class="button" onclick="openDrawer(${i})">Edit Project</button>
+        </div>
+      </div>`
+    ).join('');
+  }
+
+  if(summary){
+    summary.innerHTML = projects.map(p=>
+      `<div><strong>${p.name || 'Untitled Project'}</strong> — ${p.client||''} — $${p.revenue||'0'}</div>`
+    ).join('');
+  }
+
+  refreshProjectSelectors();
+}
+
+function toggleProjectBody(i){
+  const body=document.getElementById('project-body-'+i);
+  if(!body) return;
+  body.style.display =
+    (body.style.display==='none' || body.style.display==='') ? 'block' : 'none';
+}
+
+// Refresh project dropdowns in other tabs
+function refreshProjectSelectors(){
+  const base = '<option value="">Attach to project (optional)</option>';
+  const options = base + projects.map(p=>
+    `<option value="${p.id}">${p.name || 'Untitled Project'}</option>`
+  ).join('');
+  ['wProject','tProject','dProject'].forEach(id=>{
+    const sel=document.getElementById(id);
+    if(sel) sel.innerHTML=options;
+  });
+}
+
+// Helper: get project name by id
+function getProjectNameById(id){
+  if(id==null || id==="") return null;
+  const p = projects.find(pr=>String(pr.id)===String(id));
+  return p ? (p.name || 'Untitled Project') : null;
+}
+
+// OPEN DRAWER
+function openDrawer(i){
+  if(VERSION==="limited") return alert("Upgrade required.");
+  currentIndex=i;
+  const p=projects[i];
+  eName.value=p.name;
+  eClient.value=p.client;
+  eEmail.value=p.email;
+  ePhone.value=p.phone;
+  eRevenue.value=p.revenue;
+  eNotes.value=p.notes;
+  drawer.classList.add('open');
+  drawerBg.classList.add('show');
+}
+
+// CLOSE DRAWER
+function closeDrawer(){
+  drawer.classList.remove('open');
+  drawerBg.classList.remove('show');
+}
+
+// SAVE EDIT
+function saveEdit(){
+  const p=projects[currentIndex];
+  p.name=eName.value;
+  p.client=eClient.value;
+  p.email=eEmail.value;
+  p.phone=ePhone.value;
+  p.revenue=eRevenue.value;
+  p.notes=eNotes.value;
+  refreshProjectList();
+  closeDrawer();
+}
+
+// DELETE PROJECT
+function deleteProject(){
+  projects.splice(currentIndex,1);
+  refreshProjectList();
+  closeDrawer();
+}
+
+// FINANCES (mini P&L with project linking)
+function addTransaction(){
+  if(VERSION==="limited") return alert("Upgrade required.");
+  const rawAmount = parseFloat(tAmount.value || '0');
+  const amount = isNaN(rawAmount) ? 0 : rawAmount;
+  const tx = {
+    type: tType.value,
+    projectId: tProject.value || null,
+    category: tCategory.value,
+    date: tDate.value,
+    amount: amount,
+    note: tNote.value
+  };
+  finances.push(tx);
+  renderFinances();
+}
+
+function renderFinances(){
+  const tListEl = document.getElementById('tList');
+  if(!tListEl) return;
+
+  let income=0, expense=0;
+  finances.forEach(tx=>{
+    if(tx.type === 'Income') income += tx.amount;
+    if(tx.type === 'Expense') expense += tx.amount;
+  });
+  const net = income - expense;
+  const rows = finances.map(tx=>{
+    const amt = (typeof tx.amount === 'number' ? tx.amount.toFixed(2) : tx.amount);
+    const projectName = tx.projectId ? getProjectNameById(tx.projectId) : null;
+    const projectLabel = projectName ? ` • Project: ${projectName}` : '';
+    return `<div style="margin-bottom:8px;">
+      <strong>${tx.date || ''}</strong> — ${tx.type || ''} — ${tx.category || ''} — $${amt}<br/>
+      <small>${tx.note || ''}${projectLabel}</small>
+    </div>`;
+  }).join('');
+  tListEl.innerHTML = `
+    <div><strong>Total Income:</strong> $${income.toFixed(2)}</div>
+    <div><strong>Total Expenses:</strong> $${expense.toFixed(2)}</div>
+    <div><strong>Net:</strong> $${net.toFixed(2)}</div>
+    <hr/>` + (rows || '<div>No transactions yet.</div>');
+}
+
+// DOCUMENTS (project-linked)
+function renderDocs(){
+  const dListEl = document.getElementById('dList');
+  if(!dListEl) return;
+  dListEl.innerHTML = docs.length
+    ? docs.map(d=>{
+        const projectName = d.projectId ? getProjectNameById(d.projectId) : null;
+        const projectLabel = projectName ? ` — <span style="font-size:12px;">Project: ${projectName}</span>` : '';
+        return `<div style="margin-bottom:6px;"><strong>${d.title}</strong>${projectLabel}</div>`;
+      }).join('')
+    : 'No documents yet.';
+}
+
+function saveDocument(){
+  if(VERSION==="limited") return alert("Upgrade required.");
+  docs.push({title:dTitle.value, body:dBody.value, projectId: dProject.value || null});
+  renderDocs();
+}
+
+function importDocuments(evt){
+  if(VERSION==="limited") return alert("Upgrade required.");
+  const files = Array.from((evt && evt.target && evt.target.files) || []);
+  files.forEach(file=>{
+    docs.push({
+      title:file.name,
+      body:`[Uploaded file: ${file.name} (${file.size} bytes)]`,
+      projectId: dProject.value || null
+    });
+  });
+  if(evt && evt.target) evt.target.value="";
+  renderDocs();
+}
+
+// FILE DOWNLOAD HELPER
+function downloadFile(content,name,type){
+  const file=new Blob([content],{type});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(file);
+  a.download=name;
+  a.click();
+  a.remove();
+}
+
+// WORKSPACES & TRAVEL (project-linked)
+function addWorkspace(){
+  if(VERSION==="limited") return alert("Upgrade required.");
+  const ws = {
+    name: wName.value,
+    type: wType.value,
+    location: wLocation.value,
+    wifi: wWifi.value,
+    notes: wNotes.value,
+    coords: currentLocation,
+    projectId: wProject.value || null
+  };
+  workspaces.push(ws);
+  renderWorkspaces();
+}
+
+function renderWorkspaces(){
+  const list = document.getElementById('wList');
+  if(!list) return;
+  if(workspaces.length===0){
+    list.innerHTML='No workspaces saved yet.';
+    return;
+  }
+  list.innerHTML = workspaces.map(ws=>{
+    const coords = ws.coords ? ` (📍${ws.coords.lat.toFixed(3)}, ${ws.coords.lon.toFixed(3)})` : '';
+    const projectName = ws.projectId ? getProjectNameById(ws.projectId) : null;
+    const projectLine = projectName ? `<br/><small>Project: ${projectName}</small>` : '';
+    return `<div style="margin-bottom:10px;">
+      <strong>${ws.name || ''}</strong> — ${ws.type || ''}<br/>
+      <small>${ws.location || ''}${coords}<br/>Wi-Fi: ${ws.wifi || ''}</small><br/>
+      <small>${ws.notes || ''}</small>${projectLine}
+    </div>`;
+  }).join('');
+}
+
+function captureLocation(){
+  if(!navigator.geolocation){
+    alert('Location not supported on this device.');
+    return;
+  }
+  navigator.geolocation.getCurrentPosition(
+    pos=>{
+      currentLocation = { lat:pos.coords.latitude, lon:pos.coords.longitude };
+      alert('Location captured for your next workspace entry.');
+    },
+    err=>{
+      alert('Unable to get location: ' + err.message);
+    }
+  );
+}
+
+// ASSISTANT LOGIC (SMART PROMPTS + AUTO-JUMP)
+function goToTab(tabId){
+  const tabBtn = document.querySelector(`.tab[data-tab="${tabId}"]`);
+  if(tabBtn){
+    tabBtn.click();
+    const section = document.getElementById(tabId);
+    if(section && section.scrollIntoView){
+      section.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+  }
+}
+
+function runAssistant(){
+  const select = document.getElementById('assistantTask');
+  const out = document.getElementById('assistantOutput');
+  if(!select || !out) return;
+
+  const task = select.value;
+  if(!task){
+    out.innerHTML = "";
+    return;
+  }
+
+  if(task === 'project'){
+    goToTab('projects');
+
+    if(typeof pName !== 'undefined' && !pName.value) pName.value = 'New Client Project';
+    if(typeof pClient !== 'undefined' && !pClient.value) pClient.value = 'Sample Client';
+    if(typeof pRevenue !== 'undefined' && !pRevenue.value) pRevenue.value = '1500';
+
+    out.innerHTML = '' +
+      '<strong>Next step:</strong> Review the fields I pre-filled as an example in the <em>Projects</em> tab.<br>' +
+      '1. Replace the sample name, client, and revenue with your real project details.<br>' +
+      '2. Click <strong>Add Project</strong>.<br>' +
+      '3. Your project will appear under <em>Saved Projects</em> and in <em>Projects Overview</em> on the Dashboard.';
+  } else if(task === 'travel'){
+    goToTab('travel');
+
+    if(projects.length && typeof wProject !== 'undefined' && !wProject.value){
+      wProject.value = projects[0].id;
+    }
+
+    out.innerHTML = '' +
+      '<strong>Next step:</strong> Add a workspace or stop in <em>Workspaces &amp; Travel</em>.<br>' +
+      '1. Enter a clear stop name and location.<br>' +
+      '2. Add Wi-Fi, parking, and safety notes.<br>' +
+      '3. Keep it linked by attaching it to the matching project.';
+  } else if(task === 'finances'){
+    goToTab('finances');
+
+    if(typeof tType !== 'undefined' && !tType.value) tType.value = 'Income';
+    if(projects.length && typeof tProject !== 'undefined' && !tProject.value){
+      tProject.value = projects[0].id;
+    }
+    if(typeof tDate !== 'undefined' && !tDate.value){
+      const today = new Date().toISOString().slice(0,10);
+      tDate.value = today;
+    }
+
+    out.innerHTML = '' +
+      '<strong>Next step:</strong> Log a transaction in the <em>Finances</em> tab.<br>' +
+      '1. Confirm the Type (Income or Expense) and attached project.<br>' +
+      '2. Enter the category, date, and amount, then click <strong>Add Transaction</strong>.<br>' +
+      '3. Scroll to <em>Summary &amp; Log</em> to see your updated mini P&amp;L.';
+  } else if(task === 'docs'){
+    goToTab('documents');
+
+    if(projects.length && typeof dProject !== 'undefined' && !dProject.value){
+      dProject.value = projects[0].id;
+    }
+
+    out.innerHTML = '' +
+      '<strong>Next step:</strong> Create a document in the <em>Documents</em> tab.<br>' +
+      '1. Add a clear title and notes, links, or checklist items.<br>' +
+      '2. Attach it to the related project so everything stays bundled.<br>' +
+      '3. Use <strong>Upload Files</strong> for PDFs or images you want listed.';
+  } else if(task === 'export'){
+    goToTab('dashboard');
+
+    out.innerHTML = '' +
+      '<strong>Next step:</strong> Scroll to <strong>Export Tools</strong> on the <em>Dashboard</em>.<br>' +
+      '&#8226; Use <strong>Export Projects (CSV)</strong> for your project list.<br>' +
+      '&#8226; Use <strong>Export Finances (CSV)</strong> for income, expenses, and mini P&amp;L data.<br>' +
+      '&#8226; Use <strong>Export Documents (TXT)</strong> for a text backup of your saved notes.';
+  } else if(task === 'support'){
+    goToTab('dashboard');
+
+    out.innerHTML = '' +
+      '<strong>Next step:</strong> If you feel stuck or want a live walkthrough:<br>' +
+      '&#8226; Email support at <a href="mailto:Support@about-facegroup.com">Support@about-facegroup.com</a>.<br>' +
+      '&#8226; Or click <em>Schedule a 1:1 Session</em> in the Support card on the Dashboard to book time.';
+  } else {
+    out.innerHTML = '';
+  }
+}
+
+// EXPORTS
+function exportProjectsCSV(){
+  if(VERSION==="limited") return alert("Upgrade required.");
+  const header = "Name,Client,Email,Phone,Revenue,Notes\n";
+  const rows = projects.map(p => [p.name,p.client,p.email,p.phone,p.revenue,p.notes]
+    .map(v => `"${(v||"").replace(/"/g,'""')}"`).join(",")
+  ).join("\n");
+  const csv = header + rows;
+  downloadFile(csv,"projects.csv","text/csv");
+}
+
+function exportFinancesCSV(){
+  if(VERSION==="limited") return alert("Upgrade required.");
+  const header = "Type,Project,Category,Date,Amount,Note\n";
+  const rows = finances.map(f => {
+    const projectName = f.projectId ? getProjectNameById(f.projectId) : "";
+    return [
+      f.type,
+      projectName,
+      f.category,
+      f.date,
+      f.amount,
+      f.note
+    ].map(v => `"${(v||"").toString().replace(/"/g,'""')}"`).join(",");
+  }).join("\n");
+  const csv = header + rows;
+  downloadFile(csv,"finances.csv","text/csv");
+}
+
+function exportDocsTXT(){
+  if(VERSION==="limited") return alert("Upgrade required.");
+  const txt = docs.map(d => {
+    const projectName = d.projectId ? getProjectNameById(d.projectId) : "";
+    const tag = projectName ? ` (Project: ${projectName})` : "";
+    return `TITLE: ${d.title}${tag}\n${d.body}\n---`;
+  }).join("\n\n");
+  downloadFile(txt,"documents.txt","text/plain");
+}
+
+// FEATURE LOCKS FOR LIMITED VERSION
+function applyFeatureLocks(){
+  if(VERSION!=="limited") return;
+
+  document.querySelectorAll('.button, .export-btn, .input').forEach(el=>{
+    el.disabled=true;
+    el.style.opacity="0.5";
+  });
+
+  sections.forEach(sec=>{
+    if(sec.id!=="dashboard"){
+      sec.innerHTML='<div style="padding:40px; text-align:center; font-size:18px; color:#b33; font-weight:600;">Full Version Required.<br>Upgrade to unlock this feature.</div>';
+    }
+  });
+}
+
+// SIMPLE SELF-TESTS (won't affect UI)
+(function selfTest(){
+  console.assert(typeof addProject === 'function', 'addProject should be defined');
+  console.assert(typeof runAssistant === 'function', 'runAssistant should be defined');
+})();
+
+// INITIAL RENDER
+refreshProjectList();
+renderWorkspaces();
+renderFinances();
+renderDocs();
+</script>
+
+</div>
+</body>
+</html>
